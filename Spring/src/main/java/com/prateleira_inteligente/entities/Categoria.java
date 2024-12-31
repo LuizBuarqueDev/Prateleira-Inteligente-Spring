@@ -18,7 +18,4 @@ public class Categoria {
     private Long id;
 
     private String nome;
-
-    @ManyToMany(mappedBy = "categorias", cascade = CascadeType.ALL)
-    private List<Livro> livros = new ArrayList<>();
 }

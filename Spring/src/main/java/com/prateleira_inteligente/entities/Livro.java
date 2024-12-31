@@ -1,4 +1,4 @@
-package com.prateleira_inteligente.entities;
+/*package com.prateleira_inteligente.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,3 +25,4 @@ public class Livro {
     @ManyToMany(mappedBy = "livros", cascade = CascadeType.ALL)
     private List<Categoria> categorias = new ArrayList<>();
 }
+*/
