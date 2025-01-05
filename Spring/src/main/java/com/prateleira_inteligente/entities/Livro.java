@@ -1,4 +1,4 @@
-/*package com.prateleira_inteligente.entities;
+package com.prateleira_inteligente.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-
 @Entity
 @Table(name = "Livros")
 public class Livro {
@@ -22,7 +21,11 @@ public class Livro {
     private String descricao;
     private String editora;
 
-    @ManyToMany(mappedBy = "livros", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "categoria_livro",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
     private List<Categoria> categorias = new ArrayList<>();
 }
-*/

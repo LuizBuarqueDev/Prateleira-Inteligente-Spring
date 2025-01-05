@@ -1,12 +1,10 @@
 package com.prateleira_inteligente.entities;
 
 import jakarta.persistence.*;
-
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Data
 @Entity
@@ -18,4 +16,7 @@ public class Categoria {
     private Long id;
 
     private String nome;
+
+    @ManyToMany(mappedBy = "categorias", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private List<Livro> livros = new ArrayList<>();
 }
