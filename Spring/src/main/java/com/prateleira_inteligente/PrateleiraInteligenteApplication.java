@@ -1,9 +1,7 @@
 package com.prateleira_inteligente;
 
-import com.prateleira_inteligente.entities.Categoria;
-import com.prateleira_inteligente.entities.Livro;
-import com.prateleira_inteligente.persistence.CategoriaRepository;
-import com.prateleira_inteligente.persistence.LivroRepository;
+import com.prateleira_inteligente.entities.*;
+import com.prateleira_inteligente.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +18,12 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
     @Autowired
     private LivroRepository livroRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ComentarioRepository comentarioRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(PrateleiraInteligenteApplication.class, args);
@@ -49,29 +53,63 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         Categoria categoriaProgramacao = new Categoria();
         categoriaProgramacao.setNome("Programação");
 
-        // Estabelecer relacionamento
+        // Estabelecer relacionamento Livro-Categoria
         livro1.getCategorias().add(categoriaTecnologia);
         livro1.getCategorias().add(categoriaProgramacao);
 
         livro2.getCategorias().add(categoriaTecnologia);
 
-        categoriaTecnologia.getLivros().add(livro1);
-        categoriaTecnologia.getLivros().add(livro2);
-
+        categoriaTecnologia.getLivros().addAll(Arrays.asList(livro1, livro2));
         categoriaProgramacao.getLivros().add(livro1);
 
-        // Salvar entidades
-        livroRepository.save(livro1);
-        livroRepository.save(livro2);
-        categoriaRepository.save(categoriaTecnologia);
-        categoriaRepository.save(categoriaProgramacao);
+        // Criar usuários
+        Usuario usuario1 = new Usuario();
+        usuario1.setNome("João Silva");
 
-        // Recuperar e exibir categorias com livros
+        Usuario usuario2 = new Usuario();
+        usuario2.setNome("Maria Oliveira");
+
+        // Estabelecer relacionamento Usuario-Livro
+        usuario1.getLivros().add(livro1);
+        usuario2.getLivros().add(livro2);
+
+        livro1.getUsuarios().add(usuario1);
+        livro2.getUsuarios().add(usuario2);
+
+        // Criar comentários
+        Comentario comentario1 = new Comentario();
+        comentario1.setUsuario(usuario1); // Associar o comentário ao usuário João Silva
+
+        Comentario comentario2 = new Comentario();
+        comentario2.setUsuario(usuario2); // Associar o comentário ao usuário Maria Oliveira
+
+        // Relacionar comentários a usuários
+        usuario1.getComentarios().add(comentario1);
+        usuario2.getComentarios().add(comentario2);
+
+        // Salvar entidades
+        categoriaRepository.saveAll(Arrays.asList(categoriaTecnologia, categoriaProgramacao));
+        livroRepository.saveAll(Arrays.asList(livro1, livro2));
+        usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
+        comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2));
+
+        // Recuperar e exibir dados
+        System.out.println("Categorias e seus livros:");
         categoriaRepository.findAll().forEach(categoria -> {
             System.out.println("Categoria: " + categoria.getNome());
-            categoria.getLivros().forEach(livro ->
-                    System.out.println("  - Livro: " + livro.getTitulo())
-            );
+            categoria.getLivros().forEach(livro -> System.out.println("  - Livro: " + livro.getTitulo()));
+        });
+
+        System.out.println("\nUsuários e seus livros:");
+        usuarioRepository.findAll().forEach(usuario -> {
+            System.out.println("Usuário: " + usuario.getNome());
+            usuario.getLivros().forEach(livro -> System.out.println("  - Livro: " + livro.getTitulo()));
+        });
+
+        System.out.println("\nComentários e seus autores:");
+        comentarioRepository.findAll().forEach(comentario -> {
+            System.out.println("Comentário ID: " + comentario.getId());
+            System.out.println("  - Autor: " + comentario.getUsuario().getNome());
         });
     }
 }

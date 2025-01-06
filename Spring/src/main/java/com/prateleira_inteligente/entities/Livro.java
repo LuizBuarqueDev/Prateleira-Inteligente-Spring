@@ -23,9 +23,12 @@ public class Livro {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "categoria_livro",
+            name = "livro_categoria",
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
     private List<Categoria> categorias = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "livros", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private List<Usuario> usuarios = new ArrayList<>();
 }
