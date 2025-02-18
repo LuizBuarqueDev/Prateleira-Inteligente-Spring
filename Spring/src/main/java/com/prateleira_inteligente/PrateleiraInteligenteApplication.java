@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.Optional;
 
 @SpringBootApplication
 public class PrateleiraInteligenteApplication implements CommandLineRunner {
@@ -25,26 +26,38 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
+    @Autowired
+    private AutorRepository autorRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(PrateleiraInteligenteApplication.class, args);
     }
 
     @Override
     public void run(String... args) {
+        // Criar autor
+        Autor autor1 = new Autor();
+        autor1.setNome("Herbert Schildt");
+
+        Autor autor2 = new Autor();
+        autor2.setNome("Craig Walls");
+
+        autorRepository.saveAll(Arrays.asList(autor1, autor2));
+
         // Criar livros
         Livro livro1 = new Livro();
         livro1.setTitulo("Java para Iniciantes");
-        livro1.setAutor("Herbert Schildt");
         livro1.setAnoPublicacao(Date.valueOf("2020-01-01"));
         livro1.setDescricao("Um guia completo para aprender Java.");
         livro1.setEditora("McGraw-Hill");
+        livro1.setAutor(autor1);
 
         Livro livro2 = new Livro();
         livro2.setTitulo("Spring Framework");
-        livro2.setAutor("Craig Walls");
         livro2.setAnoPublicacao(Date.valueOf("2019-03-15"));
         livro2.setDescricao("Explorando os recursos do Spring.");
         livro2.setEditora("Packt Publishing");
+        livro2.setAutor(autor2);
 
         // Criar categorias
         Categoria categoriaTecnologia = new Categoria();
@@ -54,9 +67,7 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         categoriaProgramacao.setNome("Programação");
 
         // Estabelecer relacionamento Livro-Categoria
-        livro1.getCategorias().add(categoriaTecnologia);
-        livro1.getCategorias().add(categoriaProgramacao);
-
+        livro1.getCategorias().addAll(Arrays.asList(categoriaTecnologia, categoriaProgramacao));
         livro2.getCategorias().add(categoriaTecnologia);
 
         categoriaTecnologia.getLivros().addAll(Arrays.asList(livro1, livro2));
@@ -78,12 +89,18 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
         // Criar comentários
         Comentario comentario1 = new Comentario();
-        comentario1.setUsuario(usuario1); // Associar o comentário ao usuário João Silva
+        comentario1.setUsuario(usuario1);
+        comentario1.setLivro(livro1);
+        comentario1.setTexto("Ótimo livro para iniciantes!");
 
         Comentario comentario2 = new Comentario();
-        comentario2.setUsuario(usuario2); // Associar o comentário ao usuário Maria Oliveira
+        comentario2.setUsuario(usuario2);
+        comentario2.setLivro(livro2);
+        comentario2.setTexto("Aprendi muito sobre Spring!");
 
-        // Relacionar comentários a usuários
+        livro1.getComentarios().add(comentario1);
+        livro2.getComentarios().add(comentario2);
+
         usuario1.getComentarios().add(comentario1);
         usuario2.getComentarios().add(comentario2);
 
@@ -93,7 +110,28 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
         comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2));
 
-        // Recuperar e exibir dados
+        // Exibir dados antes da remoção
+        System.out.println("=== Dados Antes da Remoção ===");
+        listarDados();
+
+        // Remover um livro e verificar se ele é excluído corretamente
+        System.out.println("\nRemovendo livro: " + livro1.getTitulo());
+        livroRepository.delete(livro1);
+
+        // Remover um usuário
+        System.out.println("\nRemovendo usuário: " + usuario1.getNome());
+        usuarioRepository.delete(usuario1);
+
+        // Remover uma categoria
+        System.out.println("\nRemovendo categoria: " + categoriaTecnologia.getNome());
+        categoriaRepository.delete(categoriaTecnologia);
+
+        // Exibir dados após a remoção
+        System.out.println("\n=== Dados Após a Remoção ===");
+        listarDados();
+    }
+
+    private void listarDados() {
         System.out.println("Categorias e seus livros:");
         categoriaRepository.findAll().forEach(categoria -> {
             System.out.println("Categoria: " + categoria.getNome());
@@ -110,6 +148,8 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         comentarioRepository.findAll().forEach(comentario -> {
             System.out.println("Comentário ID: " + comentario.getId());
             System.out.println("  - Autor: " + comentario.getUsuario().getNome());
+            System.out.println("  - Livro: " + comentario.getLivro().getTitulo());
+            System.out.println("  - Texto: " + comentario.getTexto());
         });
     }
 }
