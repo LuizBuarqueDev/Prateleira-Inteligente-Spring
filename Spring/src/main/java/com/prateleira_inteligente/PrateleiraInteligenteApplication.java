@@ -2,6 +2,8 @@ package com.prateleira_inteligente;
 
 import com.prateleira_inteligente.entities.*;
 import com.prateleira_inteligente.persistence.*;
+import com.prateleira_inteligente.services.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,14 +11,26 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Date;
 import java.util.Arrays;
-import java.util.Optional;
 
 @SpringBootApplication
 public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private LivroService livroService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private CategoriaService categoriaService;
+
+    @Autowired
+    private AutorService autorService;
+
+    @Autowired
+    private ComentarioService comentarioService;
+
+    // Repositórios para listagem dos dados
     @Autowired
     private LivroRepository livroRepository;
 
@@ -24,18 +38,24 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ComentarioRepository comentarioRepository;
+    private CategoriaRepository categoriaRepository;
 
     @Autowired
     private AutorRepository autorRepository;
+
+    @Autowired
+    private ComentarioRepository comentarioRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(PrateleiraInteligenteApplication.class, args);
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
-        // Criar autor
+        // CRIAÇÃO DOS DADOS
+
+        // Criar autores
         Autor autor1 = new Autor();
         autor1.setNome("Herbert Schildt");
 
@@ -82,9 +102,9 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
         // Estabelecer relacionamento Usuario-Livro
         usuario1.getLivros().add(livro1);
-        usuario2.getLivros().add(livro2);
-
         livro1.getUsuarios().add(usuario1);
+
+        usuario2.getLivros().add(livro2);
         livro2.getUsuarios().add(usuario2);
 
         // Criar comentários
@@ -99,12 +119,12 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         comentario2.setTexto("Aprendi muito sobre Spring!");
 
         livro1.getComentarios().add(comentario1);
-        livro2.getComentarios().add(comentario2);
-
         usuario1.getComentarios().add(comentario1);
+
+        livro2.getComentarios().add(comentario2);
         usuario2.getComentarios().add(comentario2);
 
-        // Salvar entidades
+        // Salvar as entidades
         categoriaRepository.saveAll(Arrays.asList(categoriaTecnologia, categoriaProgramacao));
         livroRepository.saveAll(Arrays.asList(livro1, livro2));
         usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
@@ -114,17 +134,26 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         System.out.println("=== Dados Antes da Remoção ===");
         listarDados();
 
-        // Remover um livro e verificar se ele é excluído corretamente
+        // TESTE DOS SERVICES
+
+        // Remover um livro utilizando o LivroService
         System.out.println("\nRemovendo livro: " + livro1.getTitulo());
-        livroRepository.delete(livro1);
+        livroService.deleteLivro(livro1);
 
-        // Remover um usuário
+        // Remover um usuário utilizando o UsuarioService
         System.out.println("\nRemovendo usuário: " + usuario1.getNome());
-        usuarioRepository.delete(usuario1);
+        usuarioService.deleteUsuario(usuario1);
 
-        // Remover uma categoria
+        // Remover uma categoria utilizando o CategoriaService
         System.out.println("\nRemovendo categoria: " + categoriaTecnologia.getNome());
-        categoriaRepository.delete(categoriaTecnologia);
+        categoriaService.deleteCategoria(categoriaTecnologia);
+
+        // Remover um autor utilizando o AutorService
+        System.out.println("\nRemovendo autor: " + autor1.getNome());
+        autorService.deleteAutor(autor1);
+
+        // Se desejar, também é possível remover um comentário com o ComentarioService
+        // comentarioService.deleteComentario(comentario2);
 
         // Exibir dados após a remoção
         System.out.println("\n=== Dados Após a Remoção ===");
@@ -144,12 +173,21 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
             usuario.getLivros().forEach(livro -> System.out.println("  - Livro: " + livro.getTitulo()));
         });
 
-        System.out.println("\nComentários e seus autores:");
+        System.out.println("\nAutores e seus livros:");
+        autorRepository.findAll().forEach(autor -> {
+            System.out.println("Autor: " + autor.getNome());
+            autor.getLivros().forEach(livro -> System.out.println("  - Livro: " + livro.getTitulo()));
+        });
+
+        System.out.println("\nComentários e seus dados:");
         comentarioRepository.findAll().forEach(comentario -> {
             System.out.println("Comentário ID: " + comentario.getId());
-            System.out.println("  - Autor: " + comentario.getUsuario().getNome());
+            System.out.println("  - Usuário: " + comentario.getUsuario().getNome());
             System.out.println("  - Livro: " + comentario.getLivro().getTitulo());
             System.out.println("  - Texto: " + comentario.getTexto());
         });
+
+        System.out.println("\nLivros restantes:");
+        livroRepository.findAll().forEach(livro -> System.out.println("Livro: " + livro.getTitulo()));
     }
 }
