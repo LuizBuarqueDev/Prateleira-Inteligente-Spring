@@ -1,12 +1,14 @@
 package com.prateleira_inteligente.controllers;
 
-import com.prateleira_inteligente.entities.Livro;
+import com.prateleira_inteligente.dto.LivroDTO;
+import com.prateleira_inteligente.mapper.LivroMapper;
 import com.prateleira_inteligente.services.LivroService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,9 +16,14 @@ import java.util.List;
 public class LivroController {
 
     private final LivroService livroService;
+    private final LivroMapper livroMapper;
 
     @GetMapping
-    public ResponseEntity<List<Livro>> findAll() {
-        return ResponseEntity.ok(livroService.findAll());
+    public ResponseEntity<List<LivroDTO>> findAll() {
+        List<LivroDTO> livroDTOList = livroService.findAll()
+                .stream()
+                .map(livroMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(livroDTOList);
     }
 }
