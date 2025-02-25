@@ -4,6 +4,8 @@ import com.prateleira_inteligente.dto.LivroDTO;
 import com.prateleira_inteligente.entities.Livro;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class LivroMapper {
 
@@ -14,6 +16,7 @@ public class LivroMapper {
                 .anoPublicacao(livro.getAnoPublicacao())
                 .descricao(livro.getDescricao())
                 .editora(livro.getEditora())
+                .idCategoria(livro.getCategorias().stream().map(categoria -> categoria.getId()).collect(Collectors.toList()))
                 .build();
     }
 }

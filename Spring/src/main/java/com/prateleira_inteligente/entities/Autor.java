@@ -9,12 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Autores")
-public class Autor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Autor extends BaseEntity {
     private String nome;
 
     @OneToMany(mappedBy = "autor", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

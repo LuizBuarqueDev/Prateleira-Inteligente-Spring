@@ -135,28 +135,6 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         listarDados();
 
         // TESTE DOS SERVICES
-
-        // Remover um livro utilizando o LivroService
-        System.out.println("\nRemovendo livro: " + livro1.getTitulo());
-        livroService.deleteLivro(livro1);
-
-        // Remover um usuário utilizando o UsuarioService
-        System.out.println("\nRemovendo usuário: " + usuario1.getNome());
-        usuarioService.deleteUsuario(usuario1);
-
-        // Remover uma categoria utilizando o CategoriaService
-        System.out.println("\nRemovendo categoria: " + categoriaTecnologia.getNome());
-        categoriaService.deleteCategoria(categoriaTecnologia);
-
-        // Remover um autor utilizando o AutorService
-        System.out.println("\nRemovendo autor: " + autor1.getNome());
-        autorService.deleteAutor(autor1);
-
-        // Se desejar, também é possível remover um comentário com o ComentarioService
-        // comentarioService.deleteComentario(comentario2);
-
-        // Exibir dados após a remoção
-        System.out.println("\n=== Dados Após a Remoção ===");
         listarDados();
     }
 
