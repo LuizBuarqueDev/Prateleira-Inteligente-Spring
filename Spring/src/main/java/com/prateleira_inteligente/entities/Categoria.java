@@ -9,11 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Categorias")
-public class Categoria {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Categoria extends BaseEntity {
 
     private String nome;
 

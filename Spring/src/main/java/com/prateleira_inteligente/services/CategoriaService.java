@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoriaService {
@@ -24,4 +26,8 @@ public class CategoriaService {
         categoriaRepository.delete(categoria);
     }
 
+    @Transactional(readOnly = true)
+    public List<Categoria> findAll() {
+        return categoriaRepository.findAll();
+    }
 }

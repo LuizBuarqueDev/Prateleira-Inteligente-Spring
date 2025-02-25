@@ -8,11 +8,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "Comentarios")
-public class Comentario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Comentario extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
