@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class LivroService {
@@ -42,5 +44,10 @@ public class LivroService {
 
         // Por fim, remover o livro
         livroRepository.delete(livro);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Livro> findAll() {
+        return livroRepository.findAll();
     }
 }

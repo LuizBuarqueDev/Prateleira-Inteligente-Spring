@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class CategoriaService {
+    
     private final CategoriaRepository categoriaRepository;
 
     @Transactional
