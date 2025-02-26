@@ -16,7 +16,9 @@ public class LivroMapper {
                 .anoPublicacao(livro.getAnoPublicacao())
                 .descricao(livro.getDescricao())
                 .editora(livro.getEditora())
+                .idAutor(livro.getId())
                 .idCategoria(livro.getCategorias().stream().map(categoria -> categoria.getId()).collect(Collectors.toList()))
+                .idComentario(livro.getComentarios().stream().map(comentario -> comentario.getId()).collect(Collectors.toList()))
                 .build();
     }
 }

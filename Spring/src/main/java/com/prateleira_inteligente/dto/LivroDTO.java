@@ -13,5 +13,7 @@ public class LivroDTO {
     private Date anoPublicacao;
     private String descricao;
     private String editora;
+    private Long idAutor;
     private List<Long> idCategoria ;
+    private List<Long> idComentario;
 }

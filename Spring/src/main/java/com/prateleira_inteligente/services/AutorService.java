@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AutorService {
@@ -22,5 +24,10 @@ public class AutorService {
         autor.getLivros().clear();
 
         autorRepository.delete(autor);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Autor> findAll() {
+        return autorRepository.findAll();
     }
 }
