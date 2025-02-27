@@ -5,12 +5,12 @@ import com.prateleira_inteligente.repositories.*;
 import com.prateleira_inteligente.services.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -50,14 +50,14 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         // Criar livros
         Livro livro1 = new Livro();
         livro1.setTitulo("Java para Iniciantes");
-        livro1.setAnoPublicacao(Date.valueOf("2020-01-01"));
+        livro1.setAnoPublicacao(LocalDate.of(2020,1,1));
         livro1.setDescricao("Um guia completo para aprender Java.");
         livro1.setEditora("McGraw-Hill");
         livro1.setAutor(autor1);
 
         Livro livro2 = new Livro();
         livro2.setTitulo("Spring Framework");
-        livro2.setAnoPublicacao(Date.valueOf("2019-03-15"));
+        livro2.setAnoPublicacao(LocalDate.of(2019,3,15));
         livro2.setDescricao("Explorando os recursos do Spring.");
         livro2.setEditora("Packt Publishing");
         livro2.setAutor(autor2);

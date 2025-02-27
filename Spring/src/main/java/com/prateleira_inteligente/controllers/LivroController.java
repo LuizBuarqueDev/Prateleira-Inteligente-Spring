@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/livros")
+@RequestMapping("/api/livro")
 public class LivroController {
 
     private final LivroService livroService;

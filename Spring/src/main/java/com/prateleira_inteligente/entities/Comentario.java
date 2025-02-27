@@ -3,7 +3,7 @@ package com.prateleira_inteligente.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -22,5 +22,5 @@ public class Comentario extends BaseEntity {
     private String texto;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCriacao = new Date();
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 }

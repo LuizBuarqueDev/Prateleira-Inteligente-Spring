@@ -1,7 +1,6 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.AvaliacaoDTO;
-import com.prateleira_inteligente.entities.Avaliacao;
 import com.prateleira_inteligente.mapper.AvaliacaoMapper;
 import com.prateleira_inteligente.services.AvaliacaoService;
 import lombok.RequiredArgsConstructor;

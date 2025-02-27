@@ -3,7 +3,7 @@ package com.prateleira_inteligente.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class Livro extends BaseEntity {
 
     private String titulo;
-    private Date anoPublicacao;
+    private LocalDate anoPublicacao;
     private String descricao;
     private String editora;
 
