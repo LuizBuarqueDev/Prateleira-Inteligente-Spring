@@ -4,6 +4,7 @@ import com.prateleira_inteligente.entities.*;
 import com.prateleira_inteligente.repositories.*;
 import com.prateleira_inteligente.services.*;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,39 +13,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.sql.Date;
 import java.util.Arrays;
 
+@RequiredArgsConstructor
 @SpringBootApplication
 public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
-    @Autowired
-    private LivroService livroService;
-
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private CategoriaService categoriaService;
-
-    @Autowired
-    private AutorService autorService;
-
-    @Autowired
-    private ComentarioService comentarioService;
-
-    // Repositórios para listagem dos dados
-    @Autowired
-    private LivroRepository livroRepository;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-
-    @Autowired
-    private AutorRepository autorRepository;
-
-    @Autowired
-    private ComentarioRepository comentarioRepository;
+    private final LivroService livroService;
+    private final UsuarioService usuarioService;
+    private final CategoriaService categoriaService;
+    private final AutorService autorService;
+    private final ComentarioService comentarioService;
+    private final LivroRepository livroRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final AutorRepository autorRepository;
+    private final ComentarioRepository comentarioRepository;
+    private final AvaliacaoRepository avaliacaoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(PrateleiraInteligenteApplication.class, args);
@@ -124,11 +107,17 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         livro2.getComentarios().add(comentario2);
         usuario2.getComentarios().add(comentario2);
 
+        Avaliacao avaliacao1 = new Avaliacao();
+        avaliacao1.setUsuario(usuario1);
+        avaliacao1.setLivro(livro1);
+        avaliacao1.setNota(10.0);
+
         // Salvar as entidades
         categoriaRepository.saveAll(Arrays.asList(categoriaTecnologia, categoriaProgramacao));
         livroRepository.saveAll(Arrays.asList(livro1, livro2));
         usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
         comentarioRepository.saveAll(Arrays.asList(comentario1, comentario2));
+        avaliacaoRepository.save(avaliacao1);
 
         // Exibir dados antes da remoção
         System.out.println("=== Dados Antes da Remoção ===");
