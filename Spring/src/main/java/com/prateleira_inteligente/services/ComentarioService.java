@@ -1,7 +1,7 @@
 package com.prateleira_inteligente.services;
 
 import com.prateleira_inteligente.entities.Comentario;
-import com.prateleira_inteligente.persistence.ComentarioRepository;
+import com.prateleira_inteligente.repositories.ComentarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

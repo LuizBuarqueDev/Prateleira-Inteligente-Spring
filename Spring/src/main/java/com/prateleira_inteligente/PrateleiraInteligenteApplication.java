@@ -1,7 +1,7 @@
 package com.prateleira_inteligente;
 
 import com.prateleira_inteligente.entities.*;
-import com.prateleira_inteligente.persistence.*;
+import com.prateleira_inteligente.repositories.*;
 import com.prateleira_inteligente.services.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

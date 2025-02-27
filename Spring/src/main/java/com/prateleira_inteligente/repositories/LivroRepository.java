@@ -1,4 +1,4 @@
-package com.prateleira_inteligente.persistence;
+package com.prateleira_inteligente.repositories;
 
 import com.prateleira_inteligente.entities.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;

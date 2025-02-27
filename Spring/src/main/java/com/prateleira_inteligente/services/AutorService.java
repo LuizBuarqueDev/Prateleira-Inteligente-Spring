@@ -2,7 +2,7 @@ package com.prateleira_inteligente.services;
 
 import com.prateleira_inteligente.entities.Autor;
 import com.prateleira_inteligente.entities.Livro;
-import com.prateleira_inteligente.persistence.AutorRepository;
+import com.prateleira_inteligente.repositories.AutorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
