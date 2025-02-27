@@ -25,4 +25,6 @@ public class Usuario extends BaseEntity {
     )
     private List<Livro> livros = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
 }

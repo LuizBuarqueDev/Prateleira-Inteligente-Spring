@@ -35,4 +35,7 @@ public class Livro extends BaseEntity {
 
     @OneToMany(mappedBy = "livro", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Comentario> comentarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
 }

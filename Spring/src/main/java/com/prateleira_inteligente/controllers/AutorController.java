@@ -1,8 +1,6 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.AutorDTO;
-import com.prateleira_inteligente.dto.CategoriaDTO;
-import com.prateleira_inteligente.entities.Autor;
 import com.prateleira_inteligente.mapper.AutorMapper;
 import com.prateleira_inteligente.services.AutorService;
 import lombok.RequiredArgsConstructor;
