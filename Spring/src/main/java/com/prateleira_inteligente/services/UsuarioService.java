@@ -9,13 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final ComentarioRepository comentarioRepository;
-    
+
     @Transactional
     public void deleteUsuario(Usuario usuario) {
         // Remover o usuário da associação com livros
@@ -34,5 +36,10 @@ public class UsuarioService {
         usuario.getComentarios().clear();
 
         usuarioRepository.delete(usuario);
+    }
+
+    @Transactional
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
     }
 }

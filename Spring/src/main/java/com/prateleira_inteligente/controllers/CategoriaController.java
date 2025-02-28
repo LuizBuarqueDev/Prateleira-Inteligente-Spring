@@ -1,7 +1,6 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.CategoriaDTO;
-import com.prateleira_inteligente.mapper.CategoriaMapper;
 import com.prateleira_inteligente.services.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,12 @@ import java.util.stream.Collectors;
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
-    private final CategoriaMapper categoriaMapper;
 
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> findAll() {
         List<CategoriaDTO> categoriaDTOList = categoriaService.findAll()
                 .stream()
-                .map(categoriaMapper::toDTO)
+                .map(CategoriaDTO::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(categoriaDTOList);
     }

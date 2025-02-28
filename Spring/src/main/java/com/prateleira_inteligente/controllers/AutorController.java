@@ -1,7 +1,6 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.AutorDTO;
-import com.prateleira_inteligente.mapper.AutorMapper;
 import com.prateleira_inteligente.services.AutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +17,12 @@ import java.util.stream.Collectors;
 
 public class AutorController {
     private final AutorService autorService;
-    private final AutorMapper autorMapper;
 
     @GetMapping
     public ResponseEntity<List<AutorDTO>> findAll() {
         List<AutorDTO> autorDTOList = autorService.findAll()
                 .stream()
-                .map(autorMapper::toDTO)
+                .map(AutorDTO::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(autorDTOList);
     }
