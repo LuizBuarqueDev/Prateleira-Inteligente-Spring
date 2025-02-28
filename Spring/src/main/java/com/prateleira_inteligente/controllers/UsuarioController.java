@@ -1,6 +1,8 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.UsuarioDTO;
+import com.prateleira_inteligente.entities.Usuario;
+import com.prateleira_inteligente.mapper.UsuarioMapper;
 import com.prateleira_inteligente.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,13 @@ import java.util.stream.Collectors;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final UsuarioMapper usuarioMapper;
 
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> getAllUsuarios() {
         List<UsuarioDTO> usuarioDTOList = usuarioService.findAll()
                 .stream()
-                .map(UsuarioDTO::toDTO)
+                .map(usuarioMapper::usuarioToUsuarioDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(usuarioDTOList);
     }
