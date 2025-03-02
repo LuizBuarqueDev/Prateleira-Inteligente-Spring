@@ -16,7 +16,7 @@ public class ComentarioService {
     private final ComentarioRepository comentarioRepository;
 
     @Transactional
-    public void deleteComentario(Comentario comentario) {
+    public void delete(Comentario comentario) {
         // Remover o comentário da associação com o usuário e o livro
         if (comentario.getUsuario() != null) {
             comentario.getUsuario().getComentarios().remove(comentario);

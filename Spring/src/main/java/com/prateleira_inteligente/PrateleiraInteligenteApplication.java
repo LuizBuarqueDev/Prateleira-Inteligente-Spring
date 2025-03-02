@@ -124,6 +124,43 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
 
         // TESTE DOS SERVICES
         listarDados();
+
+        // TESTE DE REMOÇÃO
+
+        // Remover um comentário
+        System.out.println("\n=== Remover um comentário ===");
+        comentarioRepository.delete(comentario1);
+        comentarioRepository.delete(comentario2);
+        listarDados();
+
+        // Remover uma avaliação
+        System.out.println("\n=== Remover uma avaliação ===");
+        avaliacaoRepository.delete(avaliacao1);
+        listarDados();
+
+        // Remover um livro
+        System.out.println("\n=== Remover um livro ===");
+        livroRepository.delete(livro1);
+        livroRepository.delete(livro2);
+        listarDados();
+
+        // Remover um autor
+        System.out.println("\n=== Remover um autor ===");
+        autorRepository.delete(autor1);
+        autorRepository.delete(autor2);
+        listarDados();
+
+        // Remover um usuário
+        System.out.println("\n=== Remover um usuário ===");
+        usuarioRepository.delete(usuario1);
+        usuarioRepository.delete(usuario2);
+        listarDados();
+
+        // Remover uma categoria
+        System.out.println("\n=== Remover uma categoria ===");
+        categoriaRepository.delete(categoriaTecnologia);
+        categoriaRepository.delete(categoriaProgramacao);
+        listarDados();
     }
 
     private void listarDados() {

@@ -19,7 +19,7 @@ public class UsuarioService {
     private final ComentarioRepository comentarioRepository;
 
     @Transactional
-    public void deleteUsuario(Usuario usuario) {
+    public void delete(Usuario usuario) {
         // Remover o usuário da associação com livros
         for (Livro livro : usuario.getLivros()) {
             livro.getUsuarios().remove(usuario);

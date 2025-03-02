@@ -16,13 +16,16 @@ public class AutorService {
     private final AutorRepository autorRepository;
 
     @Transactional
-    public void deleteAutor(Autor autor) {
-        // Desassociar o autor dos livros
+    public void delete(Autor autor) {
+        // Desassociar o autor de todos os livros
         for (Livro livro : autor.getLivros()) {
-            livro.setAutor(null);
+            livro.setAutor(null);  // Remover a referência ao autor no livro
         }
+
+        // Limpar a lista de livros do autor
         autor.getLivros().clear();
 
+        // Remover o autor após limpar as associações
         autorRepository.delete(autor);
     }
 

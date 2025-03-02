@@ -16,7 +16,7 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
 
     @Transactional
-    public void deleteCategoria(Categoria categoria) {
+    public void delete(Categoria categoria) {
         // Remover a categoria dos livros associados
         for (Livro livro : categoria.getLivros()) {
             livro.getCategorias().remove(categoria);

@@ -13,6 +13,6 @@ public class Categoria extends BaseEntity {
 
     private String nome;
 
-    @ManyToMany(mappedBy = "categorias", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "categorias", cascade = CascadeType.ALL)
     private List<Livro> livros = new ArrayList<>();
 }

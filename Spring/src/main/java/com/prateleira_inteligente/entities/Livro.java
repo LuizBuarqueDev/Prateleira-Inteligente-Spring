@@ -17,25 +17,22 @@ public class Livro extends BaseEntity {
     private String descricao;
     private String editora;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "livro_categoria",
-            joinColumns = @JoinColumn(name = "livro_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id")
-    )
-    private List<Categoria> categorias = new ArrayList<>();
-
-
-    @ManyToMany(mappedBy = "livros", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Usuario> usuarios = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
-    @OneToMany(mappedBy = "livro", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Comentario> comentarios = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "livro_categoria",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "livro_usuario",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Avaliacao> avaliacoes = new ArrayList<>();
+    private List<Comentario> comentarios = new ArrayList<>();
 }

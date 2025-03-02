@@ -20,27 +20,27 @@ public class LivroService {
     private final ComentarioRepository comentarioRepository;
 
     @Transactional
-    public void deleteLivro(Livro livro) {
-        // Remover associação com categorias
+    public void delete(Livro livro) {
+        // Remover a associação com categorias
         for (Categoria categoria : livro.getCategorias()) {
             categoria.getLivros().remove(livro);
         }
-        livro.getCategorias().clear();
+        livro.getCategorias().clear();  // Limpar a lista de categorias do livro
 
-        // Remover associação com usuários
+        // Remover a associação com usuários
         for (Usuario usuario : livro.getUsuarios()) {
             usuario.getLivros().remove(livro);
         }
-        livro.getUsuarios().clear();
+        livro.getUsuarios().clear();  // Limpar a lista de usuários do livro
 
-        // Remover comentários relacionados
+        // Remover comentários relacionados ao livro
         for (Comentario comentario : livro.getComentarios()) {
             if (comentario.getUsuario() != null) {
                 comentario.getUsuario().getComentarios().remove(comentario);
             }
             comentarioRepository.delete(comentario);
         }
-        livro.getComentarios().clear();
+        livro.getComentarios().clear();  // Limpar a lista de comentários do livro
 
         // Por fim, remover o livro
         livroRepository.delete(livro);
