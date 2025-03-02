@@ -164,6 +164,13 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
     }
 
     private void listarDados() {
+        System.out.println("Avaliações e seus livros");
+        avaliacaoRepository.findAll().forEach(avaliacao -> {
+            System.out.println("Avaliação"  + avaliacao.getNota());
+            System.out.println("Livro avaliacao:  " + avaliacao.getLivro().getTitulo());
+        });
+
+
         System.out.println("Categorias e seus livros:");
         categoriaRepository.findAll().forEach(categoria -> {
             System.out.println("Categoria: " + categoria.getNome());
