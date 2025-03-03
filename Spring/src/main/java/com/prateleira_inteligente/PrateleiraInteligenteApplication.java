@@ -125,6 +125,8 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         // TESTE DOS SERVICES
         listarDados();
 
+        /*
+
         // TESTE DE REMOÇÃO
 
         // Remover um comentário
@@ -161,6 +163,8 @@ public class PrateleiraInteligenteApplication implements CommandLineRunner {
         categoriaRepository.delete(categoriaTecnologia);
         categoriaRepository.delete(categoriaProgramacao);
         listarDados();
+
+         */
     }
 
     private void listarDados() {

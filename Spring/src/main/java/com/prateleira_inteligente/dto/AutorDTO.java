@@ -21,4 +21,10 @@ public class AutorDTO {
                 .idLivros(autor.getLivros().stream().map(id -> id.getId()).collect(Collectors.toList()))
                 .build();
     }
+
+    public Autor toEntity() {
+        Autor autor = new Autor();
+        autor.setNome(nome);
+        return autor;
+    }
 }

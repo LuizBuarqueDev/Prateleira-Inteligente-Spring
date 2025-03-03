@@ -10,12 +10,37 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AvaliacaoService {
+public class AvaliacaoService implements IService<Avaliacao> {
 
     private final AvaliacaoRepository avaliacaoRepository;
 
-    @Transactional(readOnly = true)
+    @Override
+    @Transactional
+    public Avaliacao save(Avaliacao avaliacao) {
+        return avaliacaoRepository.save(avaliacao);
+    }
+
+    @Override
+    @Transactional
+    public Avaliacao update(Long id, Avaliacao avaliacao) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Avaliacao getById(Long id) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    @Transactional
     public List<Avaliacao> findAll() {
-        return avaliacaoRepository.findAll();
+        return List.of();
     }
 }
