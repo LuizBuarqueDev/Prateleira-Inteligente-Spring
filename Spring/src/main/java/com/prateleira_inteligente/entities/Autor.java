@@ -12,7 +12,7 @@ import java.util.List;
 public class Autor extends BaseEntity {
     private String nome;
 
-    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
     private List<Livro> livros = new ArrayList<>();
 }
 

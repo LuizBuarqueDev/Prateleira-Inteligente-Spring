@@ -2,6 +2,7 @@ package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.AutorDTO;
 import com.prateleira_inteligente.entities.Autor;
+import com.prateleira_inteligente.mappers.AutorMapper;
 import com.prateleira_inteligente.services.AutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,27 +17,28 @@ import java.util.stream.Collectors;
 public class AutorController {
 
     private final AutorService autorService;
+    private final AutorMapper autorMapper;
 
     // Criar um novo autor
     @PostMapping("/create")
     public ResponseEntity<AutorDTO> create(@RequestBody AutorDTO autorDTO) {
-        Autor novoAutor = autorService.save(autorDTO.toEntity());
-        return ResponseEntity.ok(AutorDTO.toDTO(novoAutor));
+        Autor novoAutor = autorService.save(autorMapper.toEntity(autorDTO));
+        return ResponseEntity.ok(autorMapper.toDTO(novoAutor));
     }
 
     // Buscar autor por ID
     @GetMapping("/{id}")
     public ResponseEntity<AutorDTO> findById(@PathVariable Long id) {
         Autor autor = autorService.getById(id);
-        return ResponseEntity.ok(AutorDTO.toDTO(autor));
+        return ResponseEntity.ok(autorMapper.toDTO(autor));
     }
 
 
     // Atualizar um autor existente
     @PutMapping("/update/{id}")
     public ResponseEntity<AutorDTO> update(@PathVariable Long id, @RequestBody AutorDTO autorDTO) {
-        Autor autorAtualizado = autorService.update(id, autorDTO.toEntity());
-        return ResponseEntity.ok(AutorDTO.toDTO(autorAtualizado));
+        Autor autorAtualizado = autorService.update(id, autorMapper.toEntity(autorDTO));
+        return ResponseEntity.ok(autorMapper.toDTO(autorAtualizado));
     }
 
     // Excluir um autor por ID
@@ -51,7 +53,7 @@ public class AutorController {
     public ResponseEntity<List<AutorDTO>> findAll() {
         List<AutorDTO> autorDTOList = autorService.findAll()
                 .stream()
-                .map(AutorDTO::toDTO)
+                .map(autorMapper::toDTO)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(autorDTOList);
     }
