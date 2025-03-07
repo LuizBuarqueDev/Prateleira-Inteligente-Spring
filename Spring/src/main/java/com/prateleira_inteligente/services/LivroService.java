@@ -50,4 +50,9 @@ public class LivroService {
     public List<Livro> findAll() {
         return livroRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public List<Livro> findAllById(List<Long> ids){
+        return livroRepository.findAllById(ids);
+    }
 }
