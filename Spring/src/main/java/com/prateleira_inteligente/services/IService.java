@@ -8,4 +8,5 @@ public interface IService<T> {
     T getById(Long id);
     void delete(Long id);
     List<T> findAll();
+    List<T> findAllById(List<Long> ids);
 }

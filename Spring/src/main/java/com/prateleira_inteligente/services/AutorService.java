@@ -50,7 +50,6 @@ public class AutorService implements IService<Autor> {
                         livro.setAutor(autorExistente);
                     }
 
-
                     // Atualiza a lista de livros do autor
                     autorExistente.setLivros(novosLivros);
 
@@ -67,15 +66,22 @@ public class AutorService implements IService<Autor> {
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado com ID:" + id));
     }
 
-    @Override
     @Transactional
+    @Override
     public void delete(Long id) {
         autorRepository.delete(getById(id));
     }
+
 
     @Override
     @Transactional(readOnly = true)
     public List<Autor> findAll() {
         return autorRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Autor> findAllById(List<Long> ids) {
+        return autorRepository.findAllById(ids);
     }
 }

@@ -4,7 +4,6 @@ import com.prateleira_inteligente.entities.Categoria;
 import com.prateleira_inteligente.entities.Comentario;
 import com.prateleira_inteligente.entities.Livro;
 import com.prateleira_inteligente.entities.Usuario;
-import com.prateleira_inteligente.repositories.ComentarioRepository;
 import com.prateleira_inteligente.repositories.LivroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,36 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class LivroService {
+public class LivroService implements IService<Livro>{
 
     private final LivroRepository livroRepository;
-    private final ComentarioRepository comentarioRepository;
+    private final ComentarioService comentarioService;
 
+
+    @Override
     @Transactional
-    public void delete(Livro livro) {
+    public Livro save(Livro livro) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    //TODO: Implementar o update
+    public Livro update(Long id, Livro livro) {
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Livro getById(Long id) {
+        return livroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado com ID:" + id));
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        Livro livro = getById(id);
         // Remover a associação com categorias
         for (Categoria categoria : livro.getCategorias()) {
             categoria.getLivros().remove(livro);
@@ -38,7 +60,7 @@ public class LivroService {
             if (comentario.getUsuario() != null) {
                 comentario.getUsuario().getComentarios().remove(comentario);
             }
-            comentarioRepository.delete(comentario);
+            comentarioService.delete(comentario.getId());
         }
         livro.getComentarios().clear();  // Limpar a lista de comentários do livro
 
@@ -46,13 +68,15 @@ public class LivroService {
         livroRepository.delete(livro);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Livro> findAll() {
-        return livroRepository.findAll();
+        return List.of();
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public List<Livro> findAllById(List<Long> ids){
+    public List<Livro> findAllById(List<Long> ids) {
         return livroRepository.findAllById(ids);
     }
 }

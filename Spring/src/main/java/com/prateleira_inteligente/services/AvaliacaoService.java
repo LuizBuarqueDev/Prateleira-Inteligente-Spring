@@ -23,24 +23,32 @@ public class AvaliacaoService implements IService<Avaliacao> {
     @Override
     @Transactional
     public Avaliacao update(Long id, Avaliacao avaliacao) {
+        //TODO: Implementar o metodo update
         return null;
     }
 
     @Override
     @Transactional
     public Avaliacao getById(Long id) {
-        return null;
+        return avaliacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Avaliação não encontrada com ID:" + id));
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-
+        avaliacaoRepository.delete(getById(id));
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Avaliacao> findAll() {
-        return List.of();
+        return avaliacaoRepository.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Avaliacao> findAllById(List<Long> ids) {
+        return avaliacaoRepository.findAllById(ids);
     }
 }
