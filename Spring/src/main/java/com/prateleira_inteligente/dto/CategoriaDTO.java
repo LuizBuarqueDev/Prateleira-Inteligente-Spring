@@ -14,12 +14,4 @@ public class CategoriaDTO {
     private Long id;
     private String nome;
     private List<Long> idLivros;
-
-    public static CategoriaDTO toDTO(Categoria categoria) {
-        return CategoriaDTO.builder()
-                .id(categoria.getId())
-                .nome(categoria.getNome())
-                .idLivros(categoria.getLivros().stream().map(id -> id.getId()).collect(Collectors.toList()))
-                .build();
-    }
 }

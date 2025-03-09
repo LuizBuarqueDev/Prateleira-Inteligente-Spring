@@ -27,6 +27,8 @@ public class AvaliacaoMapper {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setId(avaliacaoDTO.getId());
         avaliacao.setNota(avaliacaoDTO.getNota());
+        avaliacao.setLivro(livroService.getById(avaliacaoDTO.getIdLivro()));
+        avaliacao.setUsuario(usuarioService.getById(avaliacaoDTO.getIdUsuario()));
         return avaliacao;
     }
 }
