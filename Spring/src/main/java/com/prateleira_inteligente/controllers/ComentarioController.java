@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/Comentario")
+@RequestMapping("/api/comentario")
 public class ComentarioController extends AbsGenericController<Comentario, ComentarioDTO> {
 
     public ComentarioController(IService<Comentario> service, IMapper<Comentario, ComentarioDTO> mapper) {
