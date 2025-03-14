@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class LivroMapper {
+public class LivroMapper implements IMapper<Livro, LivroDTO> {
 
     private final AutorService autorService;
     private final CategoriaService categoriaService;

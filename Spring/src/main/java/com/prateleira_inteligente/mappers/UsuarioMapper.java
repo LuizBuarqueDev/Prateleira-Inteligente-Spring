@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UsuarioMapper {
+public class UsuarioMapper implements IMapper<Usuario, UsuarioDTO> {
 
     private final ComentarioService comentarioService;
     private final LivroService livroService;

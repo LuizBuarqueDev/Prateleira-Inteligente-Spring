@@ -10,10 +10,11 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class AutorMapper {
+public class AutorMapper implements IMapper <Autor, AutorDTO> {
 
     private final LivroService livroService;
 
+    @Override
     public AutorDTO toDTO(Autor autor) {
         return AutorDTO.builder()
                 .id(autor.getId())
@@ -22,6 +23,7 @@ public class AutorMapper {
                 .build();
     }
 
+    @Override
     public Autor toEntity(AutorDTO autorDTO) {
         Autor autor = new Autor();
         autor.setId(autorDTO.getId());

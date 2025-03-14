@@ -10,11 +10,12 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class CatagoriaMapper {
+public class CatagoriaMapper implements IMapper<Categoria, CategoriaDTO> {
 
     private final LivroService livroService;
 
-    public CategoriaDTO  toDto(Categoria categoria) {
+    @Override
+    public CategoriaDTO toDTO(Categoria categoria) {
         return CategoriaDTO.builder()
                 .id(categoria.getId())
                 .nome(categoria.getNome())
@@ -22,6 +23,7 @@ public class CatagoriaMapper {
                 .build();
     }
 
+    @Override
     public Categoria toEntity(CategoriaDTO categoriaDTO) {
         Categoria categoria = new Categoria();
         categoria.setId(categoriaDTO.getId());

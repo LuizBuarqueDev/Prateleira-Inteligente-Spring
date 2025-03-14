@@ -1,29 +1,17 @@
 package com.prateleira_inteligente.controllers;
 
 import com.prateleira_inteligente.dto.ComentarioDTO;
-import com.prateleira_inteligente.services.ComentarioService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.prateleira_inteligente.entities.Comentario;
+import com.prateleira_inteligente.mappers.IMapper;
+import com.prateleira_inteligente.services.IService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/Comentario")
-public class ComentarioController {
+public class ComentarioController extends AbsGenericController<Comentario, ComentarioDTO> {
 
-    private final ComentarioService comentarioService;
-
-    @GetMapping
-    public ResponseEntity<List<ComentarioDTO>> getComentarios(){
-        List<ComentarioDTO> comentarioDTOList = comentarioService.findAll()
-                .stream()
-                .map(ComentarioDTO::toDTO)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(comentarioDTOList);
+    public ComentarioController(IService<Comentario> service, IMapper<Comentario, ComentarioDTO> mapper) {
+        super(service, mapper);
     }
 }

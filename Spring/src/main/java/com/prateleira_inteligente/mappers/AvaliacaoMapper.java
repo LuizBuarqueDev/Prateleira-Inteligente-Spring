@@ -9,11 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AvaliacaoMapper {
+public class AvaliacaoMapper implements IMapper<Avaliacao, AvaliacaoDTO> {
 
     private final UsuarioService usuarioService;
     private final LivroService livroService;
 
+    @Override
     public AvaliacaoDTO toDTO(Avaliacao avaliacao) {
         return AvaliacaoDTO.builder()
                 .id(avaliacao.getId())
@@ -23,6 +24,7 @@ public class AvaliacaoMapper {
                 .build();
     }
 
+    @Override
     public Avaliacao toEntity(AvaliacaoDTO avaliacaoDTO) {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setId(avaliacaoDTO.getId());

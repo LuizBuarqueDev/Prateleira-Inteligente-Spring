@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ComentarioMapper {
+public class ComentarioMapper implements IMapper<Comentario, ComentarioDTO> {
 
     private final UsuarioService usuarioService;
     private final LivroService livroService;
