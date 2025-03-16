@@ -21,7 +21,7 @@ public class Livro extends BaseEntity {
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "livro_categoria",
             joinColumns = @JoinColumn(name = "livro_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
