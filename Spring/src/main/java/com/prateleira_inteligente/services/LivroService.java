@@ -13,7 +13,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class LivroService implements IService<Livro>{
+public class LivroService implements IService<Livro> {
 
     private final LivroRepository livroRepository;
     private final ComentarioService comentarioService;
@@ -71,7 +71,7 @@ public class LivroService implements IService<Livro>{
     @Override
     @Transactional(readOnly = true)
     public List<Livro> findAll() {
-        return List.of();
+        return livroRepository.findAll();
     }
 
     @Override
