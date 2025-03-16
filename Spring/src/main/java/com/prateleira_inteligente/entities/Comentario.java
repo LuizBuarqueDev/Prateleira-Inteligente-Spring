@@ -21,6 +21,5 @@ public class Comentario extends BaseEntity {
     @Column(length = 1000)
     private String texto;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dataCriacao = LocalDateTime.now();
 }

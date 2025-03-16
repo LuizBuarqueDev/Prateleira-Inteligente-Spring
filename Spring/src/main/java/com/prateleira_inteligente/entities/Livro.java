@@ -27,10 +27,7 @@ public class Livro extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "livro_usuario",
-            joinColumns = @JoinColumn(name = "livro_id"),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    @ManyToMany(mappedBy = "livros",cascade = CascadeType.ALL)
     private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
