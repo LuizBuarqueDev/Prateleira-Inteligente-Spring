@@ -19,7 +19,7 @@ public class AutorMapper implements IMapper <Autor, AutorDTO> {
         return AutorDTO.builder()
                 .id(autor.getId())
                 .nome(autor.getNome())
-                .idLivros(autor.getLivros().stream().map(id -> id.getId()).collect(Collectors.toList()))
+                .idLivros(autor.getLivros().stream().map(livro -> livro.getId()).collect(Collectors.toList()))
                 .build();
     }
 
